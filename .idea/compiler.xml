@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="CekLadang.app" target="21" />
+      <module name="CekLadang_Uji_Coba_Gemini_API.app" target="21" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
