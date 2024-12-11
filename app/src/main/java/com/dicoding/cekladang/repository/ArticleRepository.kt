@@ -1,6 +1,5 @@
 package com.dicoding.cekladang.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.dicoding.cekladang.BuildConfig
@@ -22,7 +21,6 @@ class ArticleRepository(
                 emit(Result.Error("error di repository"))
             }
         } catch (e: Exception) {
-            Log.d("NewsRepository", "getSearchNews: ${e.message.toString()} ")
             emit(Result.Error(e.message.toString()))
         }
     }

@@ -14,7 +14,6 @@ fun showMaterialDialog(
     onNegativeClick: (() -> Unit)? = null,
 ) {
     if (context is Activity) {
-        // Pastikan Activity masih aktif dan belum dihancurkan
         if (!context.isFinishing && !context.isDestroyed) {
             val builder = MaterialAlertDialogBuilder(context)
                 .setTitle(title)

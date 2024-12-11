@@ -2,7 +2,6 @@ package com.dicoding.cekladang.helper
 
 import android.app.Activity
 import android.graphics.Bitmap
-import android.util.Log
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.common.TensorProcessor
@@ -47,39 +46,8 @@ class ImageClassifierHelper(
         try {
             val opt = Interpreter.Options()
             tfLite = Interpreter(loadModelFile(context)!!, opt)
-            Log.d(TAG, "Model berhasil diinisialisasi")
-            checkTensors()
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "Model gagal diinisialisasi: ${e.message}")
-        }
-    }
-
-    private fun checkTensors() {
-        // Mengecek input tensor
-        val inputTensorCount = tfLite!!.inputTensorCount
-        for (i in 0 until inputTensorCount) {
-            val tensor = tfLite!!.getInputTensor(i)
-            Log.d(TAG, "Input Tensor[$i]:")
-            Log.d(TAG, "\tShape = ${tensor.shape().contentToString()}")
-            Log.d(TAG, "\tDataType = ${tensor.dataType()}")
-            Log.d(TAG, "\tNumber of dimensions = ${tensor.numDimensions()}")
-            Log.d(TAG, "\tByte size = ${tensor.numBytes()}")
-            Log.d(TAG, "\tType of elements in tensor = ${tensor.dataType()}")
-            Log.d(TAG, "\tTensor index = $i")
-        }
-
-        // Mengecek output tensor
-        val outputTensorCount = tfLite!!.outputTensorCount
-        for (i in 0 until outputTensorCount) {
-            val tensor = tfLite!!.getOutputTensor(i)
-            Log.d(TAG, "Output Tensor[$i]:")
-            Log.d(TAG, "\tShape = ${tensor.shape().contentToString()}")
-            Log.d(TAG, "\tDataType = ${tensor.dataType()}")
-            Log.d(TAG, "\tNumber of dimensions = ${tensor.numDimensions()}")
-            Log.d(TAG, "\tByte size = ${tensor.numBytes()}")
-            Log.d(TAG, "\tType of elements in tensor = ${tensor.dataType()}")
-            Log.d(TAG, "\tTensor index = $i")
         }
     }
 
@@ -132,10 +100,8 @@ class ImageClassifierHelper(
 
             val results = showResult() ?: emptyList()
             classifierListener.onResults(results, 0L)
-            Log.d(TAG, "Klasifikasi berhasil dijalankan")
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "Klasifikasi gagal dijalankan: ${e.message}")
         }
     }
 
@@ -144,26 +110,13 @@ class ImageClassifierHelper(
             FileUtil.loadLabels(context, label)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.d(TAG, "label gagal dimuat ${e.message}")
             return null
         }
         val labeledProbability = TensorLabel(
             labels!!, probabilityProcessor!!.process(outputProbabilityBuffer)
         ).mapWithFloatValue
 
-        labeledProbability.forEach { (key, value) ->
-            val rounded = String.format("%.6f", value)
-            Log.d(TAG, "Label: $key, Probability: $rounded ")
-        }
-
-        val totalScore = labeledProbability.values.sum()
-        Log.d(TAG, "Total skor dari semua probabilitas: $totalScore")
-
         val maxValueInMap = Collections.max(labeledProbability.values)
-        Log.d(TAG, "Nilai Tertinggi di antara probabilitas: $maxValueInMap")
-
-        val minValueInMap = Collections.min(labeledProbability.values)
-        Log.d(TAG, "Nilai terendah di antara probabilitas: $minValueInMap")
 
         val result: MutableList<String> = ArrayList()
         for ((key, value) in labeledProbability) {
@@ -171,7 +124,6 @@ class ImageClassifierHelper(
                 result.add(key)
             }
         }
-        Log.d(TAG, "Hasil klasifikasi : $result")
         return result
     }
 

@@ -25,6 +25,13 @@ android {
             "API_KEY",
             "\"78328229acf64da7a972d2fc4deccfd1\""
         )
+
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"AIzaSyDKwu6AYnVrGobHmIRywMdYl_yRFMzOzOs\""
+        )
+
         buildConfigField(
             "String",
             "BASE_URL",

@@ -26,7 +26,6 @@ class DetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val historyId = intent.getIntExtra("EXTRA_HISTORY_ID", -1)
-        Log.d("DetailActivity", "Received ID: $historyId")
 
         if (historyId != -1) {
             viewModel.getHistoryById(historyId.toString()).observe(this, Observer { history ->
@@ -43,7 +42,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun displayHistoryDetails(history: History) {
-        Log.d("DetailActivity", "Displaying details for: ${history.name}")
         binding.resultName.text = "Nama Tanaman : ${history.name}"
         binding.resultAnalisis.text = "Hasil Analisis : ${history.prediction}"
         binding.tvItemDescription.text = "${history.description}"

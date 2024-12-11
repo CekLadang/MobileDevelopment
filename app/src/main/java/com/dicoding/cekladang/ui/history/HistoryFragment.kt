@@ -57,7 +57,6 @@ class HistoryFragment : Fragment() {
             val intent = Intent(requireContext(), DetailActivity::class.java).apply {
                 putExtra("EXTRA_HISTORY_ID", history.id)
             }
-            Log.d("HistroyFragment", "Navigate to detail activity ID: ${history.id}")
             startActivity(intent)
         }
 

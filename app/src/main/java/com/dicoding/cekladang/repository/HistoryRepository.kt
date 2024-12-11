@@ -1,7 +1,6 @@
 package com.dicoding.cekladang.repository
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.dicoding.cekladang.data.local.entity.History
 import com.dicoding.cekladang.data.local.room.HistoryDao
@@ -29,7 +28,6 @@ class HistoryRepository private constructor(context: Context) {
     fun getAllHistoryUser(): LiveData<List<History>> = mHistoryDao.getAllHistoryUser()
 
     fun getHistoryById(id: String): LiveData<History> {
-        Log.d("historyRepo", "Fetching history id : $id")
         return mHistoryDao.getHistoryById(id)
     }
 

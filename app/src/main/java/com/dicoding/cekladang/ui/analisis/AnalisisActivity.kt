@@ -42,10 +42,6 @@ class AnalisisActivity : AppCompatActivity() {
         labelName = intent.getStringExtra("LABEL_NAME")
         modelPath = intent.getStringExtra("MODEL_PATH")
 
-        // Pastikan data diterima dengan benar
-        Log.d(TAG, "Name: $plantName, Label: $labelName  Model: $modelPath")
-
-
         // Update model dan label di ImageClassifierHelper
         imageClassifierHelper =
             ImageClassifierHelper(this, object : ImageClassifierHelper.ClassifierListener {
@@ -120,13 +116,13 @@ class AnalisisActivity : AppCompatActivity() {
             currentImageUri = uri
             showImage()
         } else {
+            showToast("No media selected")
             Log.d("Photo Picker", "No media selected")
         }
     }
 
     private fun showImage() {
         currentImageUri?.let {
-            Log.d(TAG, "showImage called with currentImageUri: $it")
             launchCropActivity(it)
             binding.previewImageView.setImageURI(it)
         } ?: run {
@@ -145,7 +141,6 @@ class AnalisisActivity : AppCompatActivity() {
             intent.putExtra("MODEL_PATH", modelPath)  // Kirimkan modelPath
             startActivity(intent)
         } ?: run {
-            Log.e(TAG, "moveToResult: croppedImageUri is null")
             showToast(getString(R.string.image_classifier_failed))
         }
     }
