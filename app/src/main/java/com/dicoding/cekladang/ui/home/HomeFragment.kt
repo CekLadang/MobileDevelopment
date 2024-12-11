@@ -47,7 +47,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToAnalisis(selectedPlant: Plants) {
-        // Membuat intent dan mengirimkan data modelPath
         val intent = Intent(requireContext(), AnalisisActivity::class.java)
         intent.putExtra("PLANT_NAME", selectedPlant.name)
         intent.putExtra("LABEL_NAME", selectedPlant.labelPath)
@@ -57,6 +56,5 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Tidak perlu null-kan binding jika menggunakan view binding.
     }
 }

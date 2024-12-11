@@ -1,23 +1,16 @@
 package com.dicoding.cekladang.ui.customview
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.View
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.dicoding.cekladang.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class PasswordEdText @JvmOverloads constructor(
-    context: Context, attributeSet: AttributeSet? = null
+    context: Context, attributeSet: AttributeSet? = null,
 ) : TextInputEditText(context, attributeSet) {
 
     init {

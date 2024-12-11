@@ -30,7 +30,6 @@ class HomeAdapter(
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val plant = plants[position]
         holder.bind(plant) // Bind plant data ke ViewHolder
-        Log.d("HomeAdapter", "Binding item: ${plant.name}")
     }
 
     override fun getItemCount(): Int = plants.size

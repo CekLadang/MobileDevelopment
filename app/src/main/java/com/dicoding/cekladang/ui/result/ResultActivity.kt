@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.dicoding.cekladang.BuildConfig
 import com.dicoding.cekladang.data.local.entity.History
 import com.dicoding.cekladang.databinding.ActivityResultBinding
 import com.dicoding.cekladang.helper.ImageClassifierHelper
@@ -102,11 +103,9 @@ class ResultActivity : AppCompatActivity() {
                     Log.e(TAG, "Failed to convert Uri to Bitmap")
                 }
             } else {
-                Log.e(TAG, "No image URI provided")
                 finish()
             }
         } else {
-            Log.e(TAG, "Missing label or model path")
             finish()
         }
 
@@ -125,7 +124,6 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun displayImage(uri: Uri) {
-        Log.d(TAG, "Displaying image: $uri")
         binding.resultImage.setImageURI(uri)
     }
 
@@ -137,10 +135,8 @@ class ResultActivity : AppCompatActivity() {
                 "Berdasarkan hasil analisa gambar, tanaman $name dengan kondisi daun yaitu $label"
             binding.resultText.text = resultText
             history.resultText = resultText
-            Log.d(TAG, "Result: $resultText")
         } else {
             Toast.makeText(this, "No Classification Result", Toast.LENGTH_SHORT).show()
-            Log.e(TAG, "No classification results")
         }
     }
 
@@ -152,7 +148,7 @@ class ResultActivity : AppCompatActivity() {
         Log.d(TAG, "Prompt to Gemini API: $contentText")
 
         val generativeModel =
-            GenerativeModel("gemini-1.5-flash-latest", "AIzaSyDKwu6AYnVrGobHmIRywMdYl_yRFMzOzOs")
+            GenerativeModel("gemini-1.5-flash-latest", BuildConfig.GEMINI_API_KEY)
         val modelFutures = GenerativeModelFutures.from(generativeModel)
         val content = Content.Builder()
             .text(contentText)
@@ -172,7 +168,6 @@ class ResultActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(t: Throwable) {
-                    Log.e(TAG, "Gagal menghubungi Gemini API: ${t.message}")
                     binding.resultDesc.text = t.toString()
                 }
             }, mainExecutor)
@@ -206,7 +201,5 @@ class ResultActivity : AppCompatActivity() {
     companion object {
         const val IMAGE_URI = "img_uri"
         const val TAG = "AnalisisActivity"
-        const val RESULT_TEXT = "result_text"
-        const val REQUEST_HISTORY_UPDATE = 1
     }
 }
